@@ -18,6 +18,10 @@ export default StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.5)"
   },
   navigationBar: {
-    height: config.navigationBarHeight
+    height: config.navigationBarHeight,
+    width: config.screenWidth,
+    backgroundColor: 'rgb(204,204,204)',
+    borderColor: 'red',
+    borderWidth: 1
   }
 });

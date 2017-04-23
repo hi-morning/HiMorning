@@ -3,9 +3,11 @@ import {StyleSheet, Text, TouchableHighlight, View, ListView, Image, TextInput} 
 import {Scene, Router} from 'react-native-router-flux';
 import LoginScene from "./scene/LoginScene.js";
 import AlarmScene from "./scene/AlarmScene.js";
-import Commons from "./lib/commons.js";
 import styles from "../style/app.js";
-import config from "./config/app.js";
+
+import {Provider} from 'react-redux';
+import thunk from "redux-thunk";
+import store from '../redux/store.js';
 
 export default class App extends Component {
 
@@ -19,12 +21,17 @@ export default class App extends Component {
   }
 
   render() {
-    return <Router style={styles.container} navigationBarStyle={styles.navigationBar}>
-      <Scene key='root'>
-        <Scene key='alarm' title='Hi Morning' component={LoginScene} />
-        <Scene key='alarm' title='Hi Morning' component={AlarmScene} />
-      </Scene>
-    </Router>
+    return <Provider store={store}>
+      <Router style={styles.container}>
+        <Scene key='root'>
+          <Scene key='login' component={LoginScene} hideNavBar={true}
+             initial={false} />
+          <Scene key='alarm' title='Hi Morning' component={AlarmScene}
+            hideNavBar={false}
+            initial={true}/>
+        </Scene>
+      </Router>
+    </Provider>
   }
 
 }

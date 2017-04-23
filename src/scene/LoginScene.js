@@ -21,8 +21,9 @@ export default class LoginScene extends Component {
       <Image source={backgroundImage} blurRadius={3} style={styles.backgroundImage}/>
       <View style={styles.backgroundOverlay} />
       <SocialIcon title='Sign In With Facebook' button type='facebook'
+        raised={false}
         style={styles.loginButton}
-        onPress={this.handleLoginPress.bind(this)}/>
+        onPress={this.handleLoginPress.bind(this)} />
     </View>
   }
 

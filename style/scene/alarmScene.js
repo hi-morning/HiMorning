@@ -11,5 +11,8 @@ export default StyleSheet.create({
     width: config.screenWidth,
     height: config.screenHeight - config.headerHeight,
     marginTop: config.headerHeight
+  },
+  rightButtonStyle: {
+    top: 25
   }
 });
