@@ -25,7 +25,11 @@ class AlarmScene extends Component {
   }
 
   componentWillMount() {
-    this.props.loadAlarms();
+    if(this.props.common.firebase.status == 'ready') {
+      this.props.loadAlarms()
+    } else {
+      this.props.initializeFirebase();
+    }
   }
 
   componentDidMount() {
@@ -38,7 +42,11 @@ class AlarmScene extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('Alarms: ', nextProps);
+    if(nextProps.common.firebase.status == 'ready'
+      && nextProps.common.firebase.status != this.props.common.firebase.status) {
+      this.props.loadAlarms()        
+    }
+
     if(nextProps.common.alarms != this.props.common.alarms) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(nextProps.common.alarms),
@@ -148,7 +156,8 @@ let mapDispatchToProps = (dispatch) => bindActionCreators({
   updateAlarm: commonActions.updateAlarm,
   addAlarm: commonActions.addAlarm,
   deleteAlarm: commonActions.deleteAlarm,
-  loadAlarms: commonActions.loadAlarms
+  loadAlarms: commonActions.loadAlarms,
+  initializeFirebase: commonActions.initializeFirebase
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlarmScene);

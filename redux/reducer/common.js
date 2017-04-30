@@ -4,6 +4,9 @@ const initialState = {
   error: {
     code: '',
     message: ''
+  },
+  firebase: {
+    status: 'na' // 'ready', 'fail' or 'initializing'
   }
 }
 
@@ -44,6 +47,9 @@ export default (state = initialState, action) => {
     case 'common.loadAlarms': {
       return loadAlarms(state, action);
     }
+    case 'common.initializeFirebase': {
+      return initializeFirebase(state, action);
+    }
     default: {
       return state
     }
@@ -72,6 +78,35 @@ let loadAlarms = (state, action) => {
       }
     default: {
       return state
+    }
+  }
+}
+
+let initializeFirebase = (state, action) => {
+  switch(action.status) {
+    case 'init': {
+      return {
+        ...state,
+        firebase: {
+          status: 'initializing'
+        }
+      }
+    }
+    case 'successful': {
+      return {
+        ...state,
+        firebase: {
+          status: 'ready'
+        }
+      }
+    }
+    case 'fail': {
+      return {
+        ...state,
+        firebase: {
+          status: 'fail'          
+        }
+      }
     }
   }
 }
