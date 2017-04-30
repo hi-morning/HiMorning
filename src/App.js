@@ -9,6 +9,16 @@ import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import store from '../redux/store.js';
 
+const routes = <Router style={styles.container}>
+  <Scene key='root'>
+    <Scene key='login' component={LoginScene} hideNavBar={true}
+       initial={false} />
+    <Scene key='alarm' title='Hi Morning' component={AlarmScene}
+      hideNavBar={false}
+      initial={true}/>
+  </Scene>
+</Router>
+
 export default class App extends Component {
 
   constructor(props) {
@@ -22,15 +32,7 @@ export default class App extends Component {
 
   render() {
     return <Provider store={store}>
-      <Router style={styles.container}>
-        <Scene key='root'>
-          <Scene key='login' component={LoginScene} hideNavBar={true}
-             initial={false} />
-          <Scene key='alarm' title='Hi Morning' component={AlarmScene}
-            hideNavBar={false}
-            initial={true}/>
-        </Scene>
-      </Router>
+      {routes}   
     </Provider>
   }
 
